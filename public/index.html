@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1769e0">
+  <title>BLUEPAY</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">🔷 BLUEPAY</a>
+    <button id="menu" class="hidden">☰</button>
+  </header>
+
+  <main>
+    <section id="auth" class="authgrid">
+      <div>
+        <small>WORKER PORTAL</small>
+        <h1>Payments and withdrawals, made clearer.</h1>
+        <p>Manage payment verification and withdrawal details. Admin must verify submissions.</p>
+      </div>
+
+      <div class="card">
+        <nav>
+          <button data-tab="login">Login</button>
+          <button data-tab="signup">Sign Up</button>
+        </nav>
+
+        <form id="login" class="stack">
+          <h2>Welcome back</h2>
+          <label>Email
+            <input name="email" type="email" required>
+          </label>
+          <label>Password
+            <input name="password" type="password" required>
+          </label>
+          <button class="primary">Login</button>
+        </form>
+
+        <form id="signup" class="stack hidden">
+          <h2>Create account</h2>
+          <label>Full name
+            <input name="name" maxlength="80" placeholder="Your name" required>
+          </label>
+          <label>Email
+            <input name="email" type="email" required>
+          </label>
+          <label>Password (8+ characters)
+            <input name="password" type="password" minlength="8" required>
+          </label>
+          <label>Country
+            <select name="country" id="country"></select>
+          </label>
+          <label>Language
+            <select name="language" id="language"></select>
+          </label>
+          <label>Currency
+            <select name="currency" id="currency"></select>
+          </label>
+          <button class="primary">Create account</button>
+        </form>
+
+        <p id="authMsg" class="msg"></p>
+      </div>
+    </section>
+
+    <section id="worker" class="hidden">
+      <div class="row">
+        <div>
+          <small>YOUR DASHBOARD</small>
+          <h1 id="greeting">Welcome!</h1>
+          <p>Manage your BLUEPAY requests.</p>
+        </div>
+        <button id="logout" class="secondary">Log out</button>
+      </div>
+
+      <div class="warning">
+        Demo balance only: <b>200,000.00</b>.
+        This starter does not hold funds or guarantee payouts.
+      </div>
+
+      <div class="balance">
+        <div>
+          <small>DISPLAYED DEMO BALANCE</small>
+          <h2 id="amount">₦200,000.00</h2>
+          <small id="curLabel">NGN · Demo only</small>
+        </div>
+        <button id="withdraw" class="white">Withdrawal</button>
+      </div>
+
+      <div class="tiles">
+        <button data-panel="buy">
+          <b>↗ BUY BPC</b>
+          <small>Submit payment for verification</small>
+        </button>
+
+        <a href="https://wa.me/2348106593400">
+          <b>✆ CONTACT</b>
+          <small>WhatsApp support</small>
+        </a>
+
+        <a href="https://chat.whatsapp.com/F5woF8SmHtF3omWuU4XokM?s=cl&p=i&ilr=4&iam=2">
+          <b>◎ GROUP</b>
+          <small>Join WhatsApp group</small>
+        </a>
+
+        <button data-panel="faq">
+          <b>? FAQ</b>
+          <small>Common questions</small>
+        </button>
+      </div>
+
+      <section id="buy" class="card hidden">
+        <div class="row">
+          <h2>BUY BPC</h2>
+          <button data-close>Close</button>
+        </div>
+
+        <p>
+          Nigerian workers transfer ₦5,000 and upload a screenshot.
+          International workers enter the digit key issued to them.
+          Admin verifies every request.
+        </p>
+
+        <div class="paygrid">
+          <form id="bank" class="subcard stack">
+            <h3>🇳🇬 Nigerian workers — Bank transfer</h3>
+            <p>
+              Bank: <b>Moniepoint</b><br>
+              Account name: <b>Ifechukwu David</b><br>
+              Account number: <b>7068046997</b>
+              <button type="button" data-copy="7068046997">Copy</button><br>
+              Amount: <b>₦5,000</b>
+            </p>
+
+            <label>Import payment screenshot
+              <input
+                name="receipt"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                required
+              >
+            </label>
+
+            <small>JPG/PNG/WEBP, max 5 MB.</small>
+            <button class="primary">
+              I HAVE MADE PAYMENT — SUBMIT RECEIPT
+            </button>
+          </form>
+
+          <form id="digit" class="subcard stack">
+            <h3>🌍 International workers</h3>
+            <label>ENTER YOUR ISSUED DIGIT KEY
+              <input
+                name="digitKey"
+                required
+                placeholder="Enter the key you were given"
+              >
+            </label>
+            <button class="primary">SUBMIT</button>
+            <small>There is no key selection menu. Enter the issued key.</small>
+          </form>
+        </div>
+
+        <p id="payMsg" class="msg"></p>
+      </section>
+
+      <section id="withdrawPanel" class="card hidden">
+        <div class="row">
+          <h2>Withdrawal</h2>
+          <button data-close>Close</button>
+        </div>
+
+        <form id="bpc" class="stack">
+          <p>
+            Enter your BPC code to open the withdrawal details portal.
+            Payment must be approved first.
+          </p>
+          <label>BPC code
+            <input name="bpcCode" required>
+          </label>
+          <button class="primary">Unlock details portal</button>
+        </form>
+
+        <form id="details" class="stack hidden">
+          <h3>Withdrawal details</h3>
+
+          <div id="ngFields" class="stack">
+            <label>Bank name
+              <input name="bankName">
+            </label>
+            <label>Account number
+              <input name="accountNumber" inputmode="numeric" maxlength="10">
+            </label>
+            <label>Account name
+              <input name="accountName">
+            </label>
+          </div>
+
+          <div id="intlFields" class="stack hidden">
+            <label>PayPal email
+              <input name="paypalEmail" type="email">
+            </label>
+            <label>PayPal username
+              <input name="paypalUsername">
+            </label>
+          </div>
+
+          <button class="primary">Submit withdrawal details</button>
+        </form>
+
+        <p id="wdMsg" class="msg"></p>
+      </section>
+
+      <section id="faq" class="card hidden">
+        <div class="row">
+          <h2>FAQ</h2>
+          <button data-close>Close</button>
+        </div>
+
+        <details>
+          <summary>How do Nigerian workers pay?</summary>
+          <p>Transfer ₦5,000, upload the payment screenshot and submit it for admin verification.</p>
+        </details>
+
+        <details>
+          <summary>How do international workers pay?</summary>
+          <p>Enter the issued digit key and submit it for admin verification.</p>
+        </details>
+
+        <details>
+          <summary>When can I enter withdrawal details?</summary>
+          <p>After admin approval, click Withdrawal and enter a valid BPC code.</p>
+        </details>
+
+        <details>
+          <summary>Is the displayed balance withdrawable?</summary>
+          <p>No. It is a demo balance. This starter does not hold funds or execute payouts.</p>
+        </details>
+      </section>
+    </section>
+
+    <section id="adminLogin" class="card hidden">
+      <h1>Admin login</h1>
+      <p>Enter the server-configured admin key.</p>
+
+      <form id="adminForm" class="stack">
+        <label>Admin access key
+          <input name="key" type="password" required>
+        </label>
+        <button class="primary">Open Admin Dashboard</button>
+      </form>
+
+      <p id="adminMsg" class="msg"></p>
+    </section>
+
+    <section id="admin" class="hidden">
+      <div class="row">
+        <div>
+          <small>MANAGEMENT</small>
+          <h1>Admin Dashboard</h1>
+        </div>
+        <button id="adminLogout" class="secondary">Log out</button>
+      </div>
+
+      <div id="adminData"></div>
+      <p id="adminActionMsg" class="msg"></p>
+    </section>
+  </main>
+
+  <footer>
+    BLUEPAY · Secure starter portal · Real payment verification required
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
